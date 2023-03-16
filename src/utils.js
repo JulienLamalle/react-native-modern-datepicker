@@ -56,15 +56,43 @@ const gregorianConfigs = {
   timeClose: 'Close',
 };
 
+const frenchConfigs = {
+  dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+  dayNamesShort: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+  monthNames: [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ],
+  selectedFormat: 'YYYY/MM/DD',
+  dateFormat: 'YYYY/MM/DD',
+  monthYearFormat: 'YYYY MM',
+  timeFormat: 'HH:mm',
+  hour: 'Heure',
+  minute: 'Minute',
+  timeSelect: 'Sélectionner',
+  timeClose: 'Fermer',
+};
+
 class utils {
-  constructor({minimumDate, maximumDate, isGregorian, mode, reverse, configs}) {
+  constructor({minimumDate, maximumDate, isGregorian, mode, reverse, configs, locale}) {
     this.data = {
       minimumDate,
       maximumDate,
       isGregorian,
+      locale,
       reverse: reverse === 'unset' ? !isGregorian : reverse,
     };
-    this.config = isGregorian ? gregorianConfigs : jalaaliConfigs;
+    this.config = locale === 'fr' ? frenchConfigs : (isGregorian ? gregorianConfigs : jalaaliConfigs);
     this.config = {...this.config, ...configs};
     if (mode === 'time' || mode === 'datepicker') {
       this.config.selectedFormat = this.config.dateFormat + ' ' + this.config.timeFormat;
